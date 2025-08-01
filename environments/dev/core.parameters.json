@@ -7,6 +7,72 @@
     },
     "prefix": {
       "value": "iac"
+    },
+    "vnetConfigs": {
+      "value": {
+        "hub": {
+          "name": "iac-vnet-hub",
+          "addressSpace": "10.40.0.0/16",
+          "subnets": [
+            {
+              "name": "AzureFirewallSubnet",
+              "addressPrefix": "10.40.0.0/24"
+            },
+            {
+              "name": "AzureBastionSubnet",
+              "addressPrefix": "10.40.0.64/26"
+            },
+            {
+              "name": "GatewaySubnet",
+              "addressPrefix": "10.40.0.128/26"
+            },
+            {
+              "name": "subnet-shared",
+              "addressPrefix": "10.40.0.192/26"
+            }
+          ]
+        },
+        "spokeApp": {
+          "name": "iac-vnet-spoke-app",
+          "addressSpace": "10.40.1.0/16",
+          "subnets": [
+            {
+              "name": "subnet-default",
+              "addressPrefix": "10.40.1.0/24"
+            }
+          ]
+        },
+        "spokeId": {
+          "name": "iac-vnet-spoke-id",
+          "addressSpace": "10.40.2.0/16",
+          "subnets": [
+            {
+              "name": "subnet-default",
+              "addressPrefix": "10.40.2.0/24"
+            }
+          ]
+        },
+        "spokeWeb": {
+          "name": "iac-vnet-spoke-web",
+          "addressSpace": "10.40.3.0/16",
+          "subnets": [
+            {
+              "name": "subnet-default",
+              "addressPrefix": "10.40.3.0/24"
+            }
+          ]
+        },
+        "spokeAvd": {
+          "name": "iac-vnet-spoke-avd",
+          "addressSpace": "10.40.4.0/16",
+          "subnets": [
+            {
+              "name": "subnet-default",
+              "addressPrefix": "10.40.4.0/24"
+            }
+          ]
+        }
+      }
     }
   }
 }
