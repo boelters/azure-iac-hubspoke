@@ -22,31 +22,31 @@ resource hubVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
       ]
     }
     subnets: [
-      {
-        name: 'AzureFirewallSubnet'
-        properties: {
-          addressPrefix: '10.40.0.0/24'
-        }
-      }
-      {
-        name: 'AzureBastionSubnet'
-        properties: {
-          addressPrefix: '10.40.0.64/26'
-        }
-      }
-      {
-        name: 'GatewaySubnet'
-        properties: {
-          addressPrefix: '10.40.0.128/26'
-        }
-      }
-      {
-        name: 'subnet-shared'
-        properties: {
-          addressPrefix: '10.40.0.192/26'
-        }
-      }
-    ]
+  {
+    name: 'AzureFirewallSubnet'
+    properties: {
+      addressPrefix: '10.40.0.0/24'
+    }
+  }
+  {
+    name: 'AzureBastionSubnet'
+    properties: {
+      addressPrefix: '10.40.1.0/26'
+    }
+  }
+  {
+    name: 'GatewaySubnet'
+    properties: {
+      addressPrefix: '10.40.1.64/26'
+    }
+  }
+  {
+    name: 'subnet-shared'
+    properties: {
+      addressPrefix: '10.40.1.128/26'
+    }
+  }
+]
   }
 }
 
