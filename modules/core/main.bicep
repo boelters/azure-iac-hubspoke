@@ -4,7 +4,7 @@ param location string = resourceGroup().location
 @description('Prefix for naming all resources')
 param prefix string = 'iac'
 
-// Define VNet names and address spaces
+// VNet names and ranges
 var hubVnetName       = '${prefix}-vnet-hub'
 var spokeAppVnetName  = '${prefix}-vnet-spoke-app'
 var spokeIdVnetName   = '${prefix}-vnet-spoke-id'
@@ -57,35 +57,35 @@ resource spokeAppVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.40.1.0/16'
+        '10.41.0.0/16'
       ]
     }
     subnets: [
       {
         name: 'subnet-default'
         properties: {
-          addressPrefix: '10.40.1.0/24'
+          addressPrefix: '10.41.0.0/24'
         }
       }
     ]
   }
 }
 
-// VNet: SPOKE - IDENTITY
+// VNet: SPOKE - ID
 resource spokeIdVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
   name: spokeIdVnetName
   location: location
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.40.2.0/16'
+        '10.42.0.0/16'
       ]
     }
     subnets: [
       {
         name: 'subnet-default'
         properties: {
-          addressPrefix: '10.40.2.0/24'
+          addressPrefix: '10.42.0.0/24'
         }
       }
     ]
@@ -99,14 +99,14 @@ resource spokeWebVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.40.3.0/16'
+        '10.43.0.0/16'
       ]
     }
     subnets: [
       {
         name: 'subnet-default'
         properties: {
-          addressPrefix: '10.40.3.0/24'
+          addressPrefix: '10.43.0.0/24'
         }
       }
     ]
@@ -120,14 +120,14 @@ resource spokeAvdVnet 'Microsoft.Network/virtualNetworks@2023-04-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.40.4.0/16'
+        '10.44.0.0/16'
       ]
     }
     subnets: [
       {
         name: 'subnet-default'
         properties: {
-          addressPrefix: '10.40.4.0/24'
+          addressPrefix: '10.44.0.0/24'
         }
       }
     ]

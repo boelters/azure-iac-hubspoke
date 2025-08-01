@@ -17,3 +17,6 @@ This repo contains modular Bicep templates to deploy a secure Azure environment 
 
 ## Deployment
 See `/scripts` or `.github/workflows` for deployment steps.
+
+## Prereqs
+main.bicep is hard coded to refer to iac-hub as our rg -- modify as needed and ensure the rg exists prior to deployment
