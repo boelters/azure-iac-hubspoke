@@ -6,7 +6,7 @@ param adminPassword string
 param domainName string
 
 var vnetName = '${prefix}-vnet-id'
-var subnetName = 'identity-subnet'
+var subnetName = 'default-subnet'
 var nic1Name = '${prefix}-dc1-nic'
 var nic2Name = '${prefix}-dc2-nic'
 var dc1Ip = '10.41.0.4'
