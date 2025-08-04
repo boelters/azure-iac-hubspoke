@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus2"
+    },
+    "prefix": {
+      "value": "iac"
+    },
+    "adminPassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/d8c54b1b-34d4-4044-a06a-14cf8bee54fb/resourceGroups/kvEUS/providers/Microsoft.KeyVault/vaults/boelterrdp"
+        },
+        "secretName": "iac-admin-password"
+      }
+    }
+  }
+}
