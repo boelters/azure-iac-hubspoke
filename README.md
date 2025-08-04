@@ -21,4 +21,4 @@ See `/scripts` or `.github/workflows` for deployment steps.
 ## Prereqs
 - main.bicep is hard coded to refer to iac-hub as our rg -- modify as needed and ensure the rg exists prior to deployment
 - a keyvault is required with the following secrets:
-- iac-admin-password [admin pwd for vms]
+- iac-admin-password [admin pwd for vms] in a keyvault and that resource id set in identity.parameters.json
