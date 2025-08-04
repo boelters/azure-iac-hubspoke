@@ -38,7 +38,7 @@ Add-Computer -DomainName $DomainName -Credential $cred -Force -Restart:$false
 Restart-Computer -Force
 
 # Wait for reboot to complete
-Start-Sleep -Seconds 60
+Start-Sleep -Seconds 90
 
 # Promote to domain controller
 Install-ADDSDomainController `
