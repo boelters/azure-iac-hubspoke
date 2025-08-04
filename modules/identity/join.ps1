@@ -1,14 +1,16 @@
 param(
-  [string]$DomainName,
-  [string]$AdminUser,
-  [string]$AdminPassword,
-  [string]$DcName
+    [string]$DomainName,
+    [string]$AdminUser,
+    [string]$AdminPassword,
+    [string]$DcName
 )
 
 $ErrorActionPreference = "Stop"
 
+# Install AD DS Role
 Install-WindowsFeature AD-Domain-Services
 
+# Wait until the first DC is reachable
 $maxRetries = 18
 $retryInterval = 10
 for ($i = 0; $i -lt $maxRetries; $i++) {
@@ -25,7 +27,23 @@ for ($i = 0; $i -lt $maxRetries; $i++) {
     }
 }
 
+# Prepare credentials
 $secpasswd = ConvertTo-SecureString $AdminPassword -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ("$DomainName\$AdminUser", $secpasswd)
 
-Add-Computer -DomainName $DomainName -Credential $cred -Restart
+# Join the domain
+Add-Computer -DomainName $DomainName -Credential $cred -Force -Restart:$false
+
+# Restart before promotion
+Restart-Computer -Force
+
+# Wait for reboot to complete
+Start-Sleep -Seconds 60
+
+# Promote to domain controller
+Install-ADDSDomainController `
+    -DomainName $DomainName `
+    -Credential $cred `
+    -SafeModeAdministratorPassword $secpasswd `
+    -InstallDns `
+    -Force
