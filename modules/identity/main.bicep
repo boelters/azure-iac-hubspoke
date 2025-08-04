@@ -1,16 +1,9 @@
 param location string
 param prefix string
 param adminUsername string
+@secure()
+param adminPassword string
 param domainName string
-@secure()
-param adminPassword string = ''
-@secure()
-param adminPasswordKeyVault object = {
-  keyVault: {
-    id: resourceId('Microsoft.KeyVault/vaults', '<KEYVAULT_NAME>')
-  }
-  secretName: '<SECRET_NAME>'
-}
 
 var vnetName = '${prefix}-vnet-id'
 var subnetName = 'identity-subnet'
@@ -38,9 +31,7 @@ resource dc1Nic 'Microsoft.Network/networkInterfaces@2022-01-01' = {
         properties: {
           privateIPAllocationMethod: 'Static'
           privateIPAddress: dc1Ip
-          subnet: {
-            id: subnet.id
-          }
+          subnet: { id: subnet.id }
           primary: true
         }
       }
@@ -58,16 +49,12 @@ resource dc2Nic 'Microsoft.Network/networkInterfaces@2022-01-01' = {
         properties: {
           privateIPAllocationMethod: 'Static'
           privateIPAddress: dc2Ip
-          subnet: {
-            id: subnet.id
-          }
+          subnet: { id: subnet.id }
           primary: true
         }
       }
     ]
-    dnsSettings: {
-      dnsServers: [ dc1Ip ]
-    }
+    dnsSettings: { dnsServers: [ dc1Ip ] }
   }
 }
 
@@ -75,9 +62,7 @@ resource dc1 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   name: '${prefix}-dc1'
   location: location
   properties: {
-    hardwareProfile: {
-      vmSize: 'Standard_B2ms'
-    }
+    hardwareProfile: { vmSize: 'Standard_B2ms' }
     storageProfile: {
       imageReference: {
         publisher: 'MicrosoftWindowsServer'
@@ -90,11 +75,9 @@ resource dc1 'Microsoft.Compute/virtualMachines@2022-03-01' = {
     osProfile: {
       computerName: '${prefix}-dc1'
       adminUsername: adminUsername
-      adminPassword: adminPasswordKeyVault
+      adminPassword: adminPassword
     }
-    networkProfile: {
-      networkInterfaces: [{ id: dc1Nic.id }]
-    }
+    networkProfile: { networkInterfaces: [{ id: dc1Nic.id }] }
   }
 }
 
@@ -102,9 +85,7 @@ resource dc2 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   name: '${prefix}-dc2'
   location: location
   properties: {
-    hardwareProfile: {
-      vmSize: 'Standard_B2ms'
-    }
+    hardwareProfile: { vmSize: 'Standard_B2ms' }
     storageProfile: {
       imageReference: {
         publisher: 'MicrosoftWindowsServer'
@@ -117,11 +98,9 @@ resource dc2 'Microsoft.Compute/virtualMachines@2022-03-01' = {
     osProfile: {
       computerName: '${prefix}-dc2'
       adminUsername: adminUsername
-      adminPassword: adminPasswordKeyVault
+      adminPassword: adminPassword
     }
-    networkProfile: {
-      networkInterfaces: [{ id: dc2Nic.id }]
-    }
+    networkProfile: { networkInterfaces: [{ id: dc2Nic.id }] }
   }
 }
 
