@@ -18,6 +18,9 @@
     },
     "adminUsername": {
       "value": "iacAdmin"
+    },
+    "domainName": {
+      "value": "iac.local"
     }
   }
 }
