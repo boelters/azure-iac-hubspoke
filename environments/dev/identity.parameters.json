@@ -15,6 +15,9 @@
         },
         "secretName": "iac-admin-password"
       }
+    },
+    "adminUsername": {
+      "value": "iacAdmin"
     }
   }
 }
