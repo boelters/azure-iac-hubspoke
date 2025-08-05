@@ -11,6 +11,6 @@ Install-WindowsFeature AD-Domain-Services
 $secpasswd = ConvertTo-SecureString $AdminPassword -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ("$DomainName\$AdminUser", $secpasswd)
 
-Install-ADDSForest -DomainName $DomainName -SafeModeAdministratorPassword $secpasswd -InstallDns -Force
+Install-ADDSForest -DomainName $DomainName -SafeModeAdministratorPassword $secpasswd -InstallDNS
 
 Restart-Computer -Force

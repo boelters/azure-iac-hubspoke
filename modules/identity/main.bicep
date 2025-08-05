@@ -115,9 +115,11 @@ resource dc1Extension 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' 
     typeHandlerVersion: '1.10'
     autoUpgradeMinorVersion: true
     protectedSettings: {
-      fileUris: [ 'https://raw.githubusercontent.com/boelters/azure-iac-hubspoke/main/modules/identity/promote.ps1' ]
-      commandToExecute: 'powershell.exe -ExecutionPolicy Unrestricted -File promote.ps1 -DomainName ${domainName} -AdminUser ${adminUsername} -AdminPassword ${adminPassword}'
-    }
+      fileUris: [
+        'https://raw.githubusercontent.com/boelters/azure-iac-hubspoke/main/modules/identity/promote.ps1'
+      ]
+      commandToExecute: 'powershell.exe -ExecutionPolicy Unrestricted -file promote.ps1 -DomainName ${domainName} -AdminUser ${adminUsername} -AdminPassword ${adminPassword}'
+ }
   }
 }
 
