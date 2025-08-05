@@ -5,12 +5,12 @@ param adminUsername string
 param adminPassword string
 param domainName string
 
-var vnetName = '${prefix}-vnet-id'
-var subnetName = 'default-subnet'
+var vnetName = '${prefix}-vnet-spoke-id'
+var subnetName = 'subnet-default'
 var nic1Name = '${prefix}-dc1-nic'
 var nic2Name = '${prefix}-dc2-nic'
-var dc1Ip = '10.41.0.4'
-var dc2Ip = '10.41.0.5'
+var dc1Ip = '10.42.0.4'
+var dc2Ip = '10.42.0.5'
 
 resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' existing = {
   name: vnetName
@@ -36,6 +36,7 @@ resource dc1Nic 'Microsoft.Network/networkInterfaces@2022-01-01' = {
         }
       }
     ]
+    dnsSettings: {dnsServers: [ '8.8.8.8' ]}
   }
 }
 
@@ -54,7 +55,7 @@ resource dc2Nic 'Microsoft.Network/networkInterfaces@2022-01-01' = {
         }
       }
     ]
-    dnsSettings: { dnsServers: [ dc1Ip ] }
+    dnsSettings: { dnsServers: [ dc1Ip, '8.8.8.8' ] }
   }
 }
 
@@ -106,6 +107,7 @@ resource dc2 'Microsoft.Compute/virtualMachines@2022-03-01' = {
 
 resource dc1Extension 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = {
   name: 'promote'
+  location: location
   parent: dc1
   properties: {
     publisher: 'Microsoft.Compute'
@@ -121,6 +123,7 @@ resource dc1Extension 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' 
 
 resource dc2Extension 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = {
   name: 'join'
+  location: location
   parent: dc2
   properties: {
     publisher: 'Microsoft.Compute'
