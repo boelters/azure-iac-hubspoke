@@ -79,6 +79,12 @@ resource dc1 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       adminPassword: adminPassword
     }
     networkProfile: { networkInterfaces: [{ id: dc1Nic.id }] }
+    diagnosticsProfile: {
+    bootDiagnostics: {
+      enabled: true
+      storageUri: null // null means "use managed storage account"
+    }
+  }
   }
 }
 
@@ -102,6 +108,12 @@ resource dc2 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       adminPassword: adminPassword
     }
     networkProfile: { networkInterfaces: [{ id: dc2Nic.id }] }
+    diagnosticsProfile: {
+    bootDiagnostics: {
+      enabled: true
+      storageUri: null // null means "use managed storage account"
+    }
+  }
   }
 }
 
